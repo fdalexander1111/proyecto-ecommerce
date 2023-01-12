@@ -1,5 +1,5 @@
 import { Router } from 'express';
-//import { auth } from '../middlewares/auth';
+import { auth } from '../middlewares/auth.js';
 import ProductController from '../controllers/ProductController.js';
 
 const router = Router();
@@ -16,10 +16,11 @@ class RouterProduct{
     start(){
        
         router.get("/", this.productController.getAll);
-       // router.post("/", auth, this.productController.save);
+        router.get("/:category", this.productController.getAllCategory);
+        router.post("/", auth, this.productController.save);
         router.get("/:id", this.productController.getById);
-       // router.put("/:id",auth,  this.productController.updateById);
-        //router.delete("/:id",auth,  this.productController.deleteById);
+        router.put("/:id",auth,  this.productController.updateById);
+        router.delete("/:id",auth,  this.productController.deleteById);
 
         return router;
     }
