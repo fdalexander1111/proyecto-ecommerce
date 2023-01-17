@@ -8,6 +8,7 @@ import RouterAuth from '../src/routes/auth.js';
 import routerShoppingCart from '../src/routes/shoppingCart.js';
 import RouterProduct from './routes/products.js';
 import { config } from "../src/config/config.js";
+import passport from 'passport';
 
 
 const app = express();
@@ -39,6 +40,8 @@ app.use(cors());
 app.use(express.json()); 
 app.use(express.urlencoded({extended: true}));
 app.use(sessionMiddleware);
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 //routes 

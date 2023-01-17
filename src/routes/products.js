@@ -16,7 +16,7 @@ class RouterProduct{
     start(){
        
         router.get("/", this.productController.getAll);
-        router.get("/:category", this.productController.getAllCategory);
+        router.get("/category/:category", this.productController.getAllCategory);
         router.post("/", auth, this.productController.save);
         router.get("/:id", this.productController.getById);
         router.put("/:id",auth,  this.productController.updateById);

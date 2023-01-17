@@ -14,13 +14,13 @@ passport.use('signup', new LocalStrategy(
 
 passport.serializeUser((user, done) => {
 
-    done(null, user._id);
-});
+   done(null, user);
+ });
 
 
-passport.deserializeUser(async (id, done) => {
-    id = Types.ObjectId(id);
-    const user = await userDao.findById(id);
+passport.deserializeUser(async (user, done) => {
+   // id = Types.ObjectId(user.id);
+    //const user = await userDao.getByname('id',id);
     done(null, user);
 });
 

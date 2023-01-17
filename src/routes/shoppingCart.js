@@ -17,7 +17,7 @@ class routerShoppingCart{
         router.post("/", this.shoppingCartController.save);
         router.delete("/:id", this.shoppingCartController.deleteById);
         router.get("/productos", this.shoppingCartController.getAllProducts);
-        router.post("/productos", this.shoppingCartController.saveProduct);
+        router.post("/", this.shoppingCartController.saveProduct);
 
         return router;
     }

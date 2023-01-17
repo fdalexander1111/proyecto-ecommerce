@@ -106,5 +106,17 @@ export default class mongoDBContainer{
         }
     }
 
+    async getById(id){
+
+        const documents = await this.model.findOne({ '_id' : id });
+        if(documents){
+
+            return documents;
+        }else{
+            return false;
+        }
+    
+    }
+
 
 }

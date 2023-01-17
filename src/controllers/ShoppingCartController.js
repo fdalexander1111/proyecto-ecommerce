@@ -126,7 +126,6 @@ export default class ShoppingCartController{
     }
 
     async getCartByUserId(userId){
-
         const cart = await userDao.getByname('id', userId);
         if(cart){
             return cart;
@@ -137,27 +136,21 @@ export default class ShoppingCartController{
     
     getAllProducts = async(req , res) => {
         try {
-            const user = new UserController();
-            const userSession = await user.getUserByUsernameSession(req.session.username);
-
-            if(!userSession){
+           
+            if(!req.session.username){
                 res.status(400).json({
                     'status':'nok',
                     'message' : 'Debe haber un usuario para poder ver el carrito',
                     'code':'400',
                 });
             }
-                        
-            let userId = new Types.ObjectId(user._id);
-                    
-            let shoppingCart = await this.getCartByUserId(userId);
+     
+            const  user = await userDao.getByname('username', req.session.username);
+            let shoppingCart = await this.getCartByUserId(user._id);
             if(!shoppingCart){
-                shoppingCart = await this.newCar();
+                shoppingCart = await this.newCar(user);
             }
-
-            debugger
-            console.log(shoppingCart);
-            const products = shoppingCart.productos;git 
+            const products = shoppingCart.productos;
          
             if(products){
     
@@ -212,18 +205,14 @@ export default class ShoppingCartController{
         }
     }
 
-    newCar = async (req) => {
-        try {
-            console.log("entro aca new");
-
-           // console.log(req.session.passport.username);
-          /*  
+    newCar = async (user) => {
+        try {           
+         
             const shoppingCart = new Object();
-            shoppingCart.email = req.session.username;
-            shoppingCart.address = "address";
+            shoppingCart.email = user.username;
+            shoppingCart.address = user.address;
             shoppingCart.products = [];
-            console.log(shoppingCart);
-            const result = await shoppingCartDao.save(shoppingCart);*/
+            const result = await shoppingCartDao.save(shoppingCart);
     
             if(result){
     

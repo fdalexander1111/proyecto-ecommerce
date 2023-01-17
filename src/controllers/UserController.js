@@ -16,7 +16,7 @@ export default class UserController{
         });
     }
 
-    async saveLogin(req, res){
+    saveLogin = async (req, res) =>{
         
         try {
             if(req.body.username){

@@ -31,7 +31,9 @@ export default class ProductController{
             }
        
         } catch (error) {
+            logger.error(error);
             res.json({error: error.message});
+
         }
 
     }
@@ -61,7 +63,7 @@ export default class ProductController{
             }
             
         } catch (error) {
-
+            logger.error(error);
             res.status(400).json({error: error.message});
         }
     }
@@ -91,7 +93,7 @@ export default class ProductController{
             }
             
         } catch (err) {
-
+            logger.error(error);
             res.status(400).json({error: err.message});
         }
         
@@ -101,9 +103,9 @@ export default class ProductController{
         try {
             
             const productReq =  req.body;
-            let product_id = new Types.ObjectId(req.params.id);
-            const updateProduct = await productDao.updateById(product_id, productReq);
-            
+            productReq.id = new Types.ObjectId(req.params.id);
+            const updateProduct = await productDao.updateById(productReq);
+            console.log(updateProduct);
             if(updateProduct){
                 res.json({
                     'status':'ok',
@@ -121,6 +123,7 @@ export default class ProductController{
             }
 
         } catch (error) {
+            logger.error(error);
              res.status(400).json({error: error.message});
         }
 
@@ -147,6 +150,7 @@ export default class ProductController{
                 });
             }
         } catch (error) {
+            logger.error(error);
             res.status(400).json({error: error.message});
         }
 

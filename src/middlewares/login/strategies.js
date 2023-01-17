@@ -21,6 +21,7 @@ export const signupStrategy = async (req, username, password, done) => {
             return done(null, false, {message: 'El usuario ya esta registrado en la base de datos'});
         }
         const user = req.body;
+        console.log(user);
         const userSave = await userDao.save(user);
         if(userSave){
             return done(null, user);
